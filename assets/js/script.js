@@ -15,4 +15,85 @@ function previewEnded() {
     $(".previewImage").toggle();
 }
 
+//Go back button funtionality on the watch video page
+function goBack() {
+    window.history.back();
+}
+
+//Fade in and out of the video navigation bar on the watch page
+function startHideTimer(){
+    var timeout = null;
+    $(document).on("mousemove", function(){
+        clearTimeout(timeout);
+        $(".watchNav").fadeIn();
+
+        timeout = setTimeout(function() {
+            $(".watchNav").fadeOut();
+        }, 2000);
+    })
+}
+
+function initVideo(videoId, username) {
+    startHideTimer();
+    setStartTime(videoId, username);
+    updateProgressTimer(videoId, username);
+}
+
+//Updating video progress every 3 secs, marking video as finished. Adding progress if it doesn't exist.
+function updateProgressTimer(videoId, username) {
+    addDuration(videoId, username);
+
+    var timer;
+
+    $("video").on("playing", function(event) {
+        window.clearInterval(timer);
+        timer = window.setInterval(function() {
+            updateProgress(videoId, username, event.target.currentTime);
+        }, 3000);
+    })
+    .on("ended", function() {
+        setFinished(videoId, username);
+        window.clearInterval(timer);
+    })
+}
+
+function addDuration(videoId, username) {
+    $.post("ajax/addDuration.php", { videoId: videoId, username: username }, function(data) {
+        if(data !== null && data !== "") {
+            alert(data);
+        }
+    })
+}
+
+function updateProgress(videoId, username, progress) {
+    $.post("ajax/updateDuration.php", { videoId: videoId, username: username, progress: progress }, function(data) {
+        if(data !== null && data !== "") {
+            alert(data);
+        }
+    })
+}
+
+function setFinished(videoId, username) {
+    $.post("ajax/setFinished.php", { videoId: videoId, username: username }, function(data) {
+        if(data !== null && data !== "") {
+            alert(data);
+        }
+    })
+}
+
+//Starting video where it was left off.
+function setStartTime(videoId, username) {
+    $.post("ajax/getProgress.php", { videoId: videoId, username: username }, function(data) {
+        if(isNaN(data)) {
+            alert(data);
+            return;
+        }
+
+        $("video").on("canplay", function() {
+            this.currentTime = data;
+            $("video").off("canplay");
+        })
+    })
+}
+
 
