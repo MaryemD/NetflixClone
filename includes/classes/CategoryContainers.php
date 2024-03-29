@@ -26,6 +26,21 @@ class CategoryContainers
         return $html . "</div>";
     }
 
+    //shows specific category for the you might also like section
+    public function showCategory($categoryId, $title = null){
+        $query = $this->con->prepare("SELECT * FROM categories WHERE id=:id");
+        $query->bindValue(':id', $categoryId);
+        $query->execute();
+
+        $html = "<div class='previewCategories noScroll'>";
+
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+            $html .= $this->getCategoryHtml($row, $title, true, true);
+        }
+
+        return $html . "</div>";
+    }
+
     //tvShows and movies variables are booleans to know whether to display tvShows, movies or both
     private function getCategoryHtml($sqlData, $title, $tvShows, $movies)
     {
