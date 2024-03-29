@@ -1,14 +1,34 @@
-*{
-  font-family: Arial, Helvetica, sans-serif;
-  color: #333;
-  box-sizing: border-box;
-}
 
 html,
 body {
   height: 100%;
   padding: 0;
   margin: 0;
+}
+
+*{
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  box-sizing: border-box;
+}
+
+h3 {
+  color: #e5e5e5;
+}
+
+a h3:hover{
+  color:#fff;
+}
+
+a{
+  text-decoration: none;
+}
+
+
+.wrapper{
+  min-width: 1050px;
+  min-height: 100%;
+  background-color: #141414;
 }
 
 .signInContainer{
@@ -102,6 +122,19 @@ body {
   display: flex;
 }
 
+.previewContainer.small{
+  width: 230px;
+    height: 129px;
+    margin-right: 4px;
+    display: inline-flex;
+}
+
+.previewContainer.small img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .previewOverlay{
   width : 100%;
   height: 100%;
@@ -147,4 +180,17 @@ button i {
 .mainDetails button:hover{
   background-color: #e6e6e6;
   color: #000;
+}
+
+
+.category {
+  display:flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.entities{
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 }
