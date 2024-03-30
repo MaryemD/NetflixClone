@@ -1,3 +1,9 @@
+//Using JQuery to handle the navigation bar's style (changing the background color on scroll)
+$(document).scroll(function() {
+    var isScrolled = $(this).scrollTop() > $(".topBar").height();
+    $(".topBar").toggleClass("scrolled", isScrolled);
+})
+
 //using JQuery to handle the muting and unmuting of the video by changing the html tag properties and displaying adequate icons
 
 function volumeToggle(button) {

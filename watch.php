@@ -1,4 +1,5 @@
 <?php
+$hideNav = true; //hiding navigation on the watch page
 require_once("includes/header.php");
 
 if(!isset($_GET["id"])) {

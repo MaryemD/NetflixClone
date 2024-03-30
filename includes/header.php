@@ -42,3 +42,9 @@ $userLoggedIn = $_SESSION["userLoggedIn"];
 
 <body>
     <div class='wrapper'>
+
+<?php
+if(!isset($hideNav)) {
+    include_once("includes/navBar.php");
+}
+?>
