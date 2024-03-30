@@ -10,7 +10,7 @@ if(isset($_POST["submitButton"])) {
     if($name == "" || $email == "" || $subject == "" || $message == "") {
         header("Location: contact.php?error=1");
     } else {
-        $emailTo = "gepidib816@ikumaru.com";
+        $emailTo = "tuniflixcontact@gmail.com";
         $headers = "From: ".$email;
         $txt = "You have received an email from ".$name.".\n\n".$message;
         mail($emailTo, $subject, $txt, $headers);
