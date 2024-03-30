@@ -398,3 +398,47 @@ button i {
 .alertError{
   color: #f00;
 }
+.contactContainer{
+  padding-top: 160px;
+  background-color: transparent;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.contactContainer h2,p{
+  color: #fff;
+  font-size: 24px;
+  margin-top:0;
+}
+.contactContainer.formSection{
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  border-bottom: 1px solid #dedede;
+  padding-bottom: 20px;
+}
+.contactContainer form input[type="text"],
+.contactContainer form input[type="email"]{
+  width: 300px;
+  height: 40px;
+  font-size: 16px ;
+  margin: 5px 0;
+  border: none;
+  border-radius: 3px;
+  padding: 0 5px;
+}
+.contactContainer form input[type="submit"] {
+  background-color: #dc1928;
+  width: 100px;
+  height: 40px;
+
+}
+.contactContainer form textarea{
+  width: 600px;
+  height: 100px;
+  font-size: 16px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 3px;
+  padding: 0 5px;
+}
