@@ -95,5 +95,19 @@ function setStartTime(videoId, username) {
         })
     })
 }
+//Restarting the video after it is finished
+function restartVideo() {
+    $("video")[0].currentTime = 0;
+    $("video")[0].play();
+    $(".upNext").fadeOut();
+}
+//watching the video by redirecting to the watch.php page
+function watchVideo(videoId) {
+    window.location.href = "watch.php?id=" + videoId;
+}
+//fade in for the up next video after the current video is finished
+function showUpNext() {
+    $(".upNext").fadeIn();
+}
 
 

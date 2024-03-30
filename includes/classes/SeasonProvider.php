@@ -2,7 +2,7 @@
 
   // gets the seasons for each entity (except movies)
 
-  class SeasonProvider{
+  class  SeasonProvider{
     private $con, $username;
 
     public function __construct($con, $username)
@@ -51,6 +51,7 @@
       $description = $video->getDescription();
       $thumbnail = $video->getThumbnail();
       $episodeNumber = $video->getEpisodeNumber();
+      $hasSeen = $video->hasSeen($this->username) ? "<i class='fas fa-check-circle seen' ></i>" : "";
 
       return "<a href='watch.php?id=$id'>
                 <div class='episodeContainer'>
@@ -60,6 +61,7 @@
                       <h4>$episodeNumber. $name</h4>
                       <span>$description</span>
                     </div>
+                    $hasSeen
                   </div>
                 </div>
               </a>";
