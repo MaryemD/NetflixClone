@@ -6,11 +6,10 @@ if(isset($_POST["submitButton"])) {
     $email = $_POST["email"];
     $subject = $_POST["subject"];
     $message = $_POST["message"];
-
     if($name == "" || $email == "" || $subject == "" || $message == "") {
         header("Location: contact.php?error=1");
     } else {
-        $emailTo = "tuniflixcontact@gmail.com";
+        $emailTo = "ramykaabi7@gmail.com";
         $headers = "From: ".$email;
         $txt = "You have received an email from ".$name.".\n\n".$message;
         mail($emailTo, $subject, $txt, $headers);
