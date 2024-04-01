@@ -27,6 +27,7 @@ a h3:hover{
 
 a{
   text-decoration: none;
+  color: #0654ba;
 }
 
 
@@ -459,4 +460,10 @@ button i {
   color: #e5e5e5;
   font-size: 50px;
   margin: 15px 0px;
+}
+
+.formSection h3{
+  padding: 0;
+  color: #fff;
+  font-size: 20px;
 }

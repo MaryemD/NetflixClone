@@ -1,11 +1,17 @@
 <?php
-require_once("includes/header.php");
-require_once("includes/classes/Account.php");
-require_once("includes/classes/FormSanitizer.php");
-require_once("includes/classes/Constants.php");
+require_once ("includes/header.php");
+require_once ("includes/classes/Account.php");
+require_once ("includes/classes/FormSanitizer.php");
+require_once ("includes/classes/Constants.php");
 
-$detailsMessage="";
-$passwordMessage="";
+
+$user = new User($con, $userLoggedIn);
+
+
+$detailsMessage = "";
+$passwordMessage = "";
+$subscriptionMessage = "";
+
 if (isset($_POST["saveDetailsButton"])) {
     $account = new Account($con);
 
@@ -13,11 +19,10 @@ if (isset($_POST["saveDetailsButton"])) {
     $lastName = FormSanitizer::sanitizeFormString($_POST["lastName"]);
     $email = FormSanitizer::sanitizeFormEmail($_POST["email"]);
 
-    if($account->updateDetails($firstName, $lastName, $email, $userLoggedIn)){
+    if ($account->updateDetails($firstName, $lastName, $email, $userLoggedIn)) {
         $detailsMessage = "<div class='alertSuccess'>Details updated successfully</div>";
-    }
-    else{
-        $errorMessage= $account->getFirstError();
+    } else {
+        $errorMessage = $account->getFirstError();
         $detailsMessage = "<div class='alertError'>$errorMessage</div>";
     }
 
@@ -36,6 +41,37 @@ if (isset($_POST["updatePasswordButton"])) {
         $passwordMessage = "<div class='alertError'>$errorMessage</div>";
     }
 }
+if (isset($_GET['success']) && $_GET['success'] == 'true') {
+    $token = $_GET['token'];
+    $agreement = new \PayPal\Api\Agreement();
+    $subscriptionMessage = "<div class='alertError'>
+                            Something Went Wrong
+                        </div>";
+
+    try {
+        // Execute agreement
+        $agreement->execute($token, $apiContext);
+        $result = $user->setIsSubscribed(1);
+        if ($result) {
+            $subscriptionMessage = "<div class='alertSuccess'>
+                            You're all signed up!
+                        </div>";
+        }
+        // Update user's account status
+
+    } catch (PayPal\Exception\PayPalConnectionException $ex) {
+        echo $ex->getCode();
+        echo $ex->getData();
+        die($ex);
+    } catch (Exception $ex) {
+        die($ex);
+    }
+} else if (isset($_GET['success']) && $_GET['success'] == 'false') {
+    $subscriptionMessage = "<div class='alertError'>
+                            User cancelled or something went wrong!
+                        </div>";
+}
+
 ?>
 
 <div class="settingsContainer column">
@@ -43,7 +79,6 @@ if (isset($_POST["updatePasswordButton"])) {
         <form method="POST">
             <h2>User details</h2>
             <?php
-            $user = new User($con, $userLoggedIn);
 
             $firstName = isset($_POST["firstName"]) ? $_POST["firstName"] : $user->getFirstName();
             $lastName = isset($_POST["lastName"]) ? $_POST["lastName"] : $user->getLastName();
@@ -78,5 +113,20 @@ if (isset($_POST["updatePasswordButton"])) {
             <input type="submit" name="updatePasswordButton" value="Update">
 
         </form>
+    </div>
+
+
+    <div class="formSection">
+        <h2>Subscription </h2>
+        <div class="message">
+            <?php echo $subscriptionMessage; ?>
+        </div>
+        <?php
+        if ($user->getIsSubscribed()) {
+            echo "<h3>You are Subscribed! Go to Paypal to cancel.</h3>";
+        } else {
+            echo "<a href='billing.php'> Subscribe to Tuniflix</a>";
+        }
+        ?>
     </div>
 </div>
