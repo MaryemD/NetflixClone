@@ -1,0 +1,58 @@
+.aligned{
+  text-align: center;
+}
+
+.addAdmin,
+.addCat{
+  margin-top: 5px;
+}
+
+.top{
+  margin-top: 100px;
+}
+
+.container{
+  max-width: 700px;
+  margin-bottom: 100px;
+}
+
+.catHead{
+  text-align: center;
+  padding: 10px 0 10px 0;
+}
+
+.movieLabel{
+  margin-top: 7px;
+}
+
+#htmlToChange{
+  margin-top: 15px;
+}
+
+.videoListLink{
+  text-decoration: none;
+  color: #589A8D;
+}
+
+.col-lg-7{
+  width: 65%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; 
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.row{
+  width: 150vh;
+}
+
+.userCard{
+  min-height: 146px;
+}
