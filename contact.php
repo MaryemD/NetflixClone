@@ -1,6 +1,5 @@
 <?php
 require_once ("includes/header.php");
-require_once ("PHPMailer.php");
 
 if (isset($_POST["submitButton"])) {
     $name = $_POST["name"];
@@ -9,27 +8,16 @@ if (isset($_POST["submitButton"])) {
     $message = $_POST["message"];
 
     if ($name == "" || $email == "" || $subject == "" || $message == "") {
-        header("Location: contact.php?error=1");
+        header("Location: contact.php?error");
     } else {
-
-        $mail->setFrom($email, $name);
-        $mail->addAddress('tuniflix.contact.tn@gmail.com', 'Tuniflix');     //Add a recipient
-        $mail->isHTML(true);
-        $mail->Subject = $subject;
-        $mail->Body = "<h4> Mail using PHPMailer </h4>
-        <b>The content:</b>
-            <p> " . $message . "</p>";
-
-        if (!$mail->send()) {
-            header("Location: contact.php?error=1");
-        } else {
-            header("Location: contact.php?success=1");
-        }
-        $mail->smtpClose();
-
+        $emailTo = "ramykaabi7@gmail.com";
+        $headers = "From: " . $email;
+        $subject = "You have received an email from Tuniflix";
+        $txt = "You have received an email from " . $name . ".\n\n" . $message;
+        mail($emailTo, $subject, $txt, $headers);
+        header("Location: contact.php?success");
     }
 }
-
 ?>
 
 <div class="contactContainer column">
