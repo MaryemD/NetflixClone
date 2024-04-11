@@ -12,6 +12,22 @@ class PreviewProvider
         $this->username = $username;
     }
     //The wanted preview can be of a random entity(the entity argument is expected to be null in this case) or of a specific entity
+    public function createTVShowPreviewVideo()
+    {
+        $entitiesArray = EntityProvider::getTVShowEntities($this->con, null, 1);
+        if (sizeof($entitiesArray) == 0) {
+            ErrorMessage::show("No TV shows to display");
+        }
+        return $this->createPreviewVideo($entitiesArray[0]);
+    }
+    public function createMoviesPreviewVideo()
+    {
+        $entitiesArray = EntityProvider::getMovieEntities($this->con, null, 1);
+        if (sizeof($entitiesArray) == 0) {
+            ErrorMessage::show("No Movies to display");
+        }
+        return $this->createPreviewVideo($entitiesArray[0]);
+    }
     public function createPreviewVideo($entity)
     {
         if ($entity == null) {
@@ -77,6 +93,15 @@ class PreviewProvider
         $entity = EntityProvider::getEntities($this->con, null, 1);
         return $entity[0];
 
+    }
+
+    public function createCategoryPreviewVideo($categoryId)
+    {
+        $entitiesArray = EntityProvider::getEntities($this->con, $categoryId, 1);
+        if (sizeof($entitiesArray) == 0) {
+            ErrorMessage::show("No entities to display");
+        }
+        return $this->createPreviewVideo($entitiesArray[0]);
     }
 }
 
