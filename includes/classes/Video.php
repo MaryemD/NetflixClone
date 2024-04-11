@@ -2,7 +2,7 @@
 
   class Video{
     private $con, $sqlData, $entity;
-    //same as Entity class constructor, with added entity variable retrieved from the db  
+    //same as Entity class constructor, with added entity variable retrieved from the db
     public function __construct($con, $input)
     {
         $this->con = $con;
@@ -10,7 +10,7 @@
         if (is_array($input)) {
             $this->sqlData = $input;
         } else {
-            $query = $this->con->prepare("SELECT * FROM entities WHERE id=:id");
+            $query = $this->con->prepare("SELECT * FROM videos WHERE id=:id");
             $query->bindValue(":id", $input);
             $query->execute();
 
@@ -49,8 +49,46 @@
       $query->bindValue(":id", $this->getId());
       $query->execute();
     }
+      public function isInProgress($username){
+          $query = $this->con->prepare("SELECT * FROM videoProgress
+                                    WHERE username=:username AND videoId=:videoId");
+          $query->bindValue(":username", $username);
+          $query->bindValue(":videoId", $this->getId());
+          $query->execute();
+
+          return $query->rowCount() != 0;
+      }
+      public function isMovie() {
+          return $this->sqlData["isMovie"] == 1;
+      }
+      public function getSeasonAndEpisode() {
+          if($this->isMovie()) {
+              return "";
+          }
+
+          $season = $this->getSeasonNumber();
+          $episode = $this->getEpisodeNumber();
+
+          return "Season $season, Episode $episode";
+      }
+      public function getSeasonNumber() {
+          return $this->sqlData["season"];
+      }
+
+      public function getEntityId() {
+          return $this->sqlData["entityId"];
+      }
+      public function hasSeen($username){
+          $query = $this->con->prepare("SELECT * FROM videoProgress
+                                    WHERE username=:username AND videoId=:videoId");
+          $query->bindValue(":username", $username);
+          $query->bindValue(":videoId", $this->getId());
+          $query->execute();
+
+          return $query->rowCount() != 0;
+      }
   }
 
-  
+
 
 ?>

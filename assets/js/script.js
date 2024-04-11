@@ -1,3 +1,9 @@
+//Using JQuery to handle the navigation bar's style (changing the background color on scroll)
+$(document).scroll(function() {
+    var isScrolled = $(this).scrollTop() > $(".topBar").height();
+    $(".topBar").toggleClass("scrolled", isScrolled);
+})
+
 //using JQuery to handle the muting and unmuting of the video by changing the html tag properties and displaying adequate icons
 
 function volumeToggle(button) {
@@ -94,6 +100,20 @@ function setStartTime(videoId, username) {
             $("video").off("canplay");
         })
     })
+}
+//Restarting the video after it is finished
+function restartVideo() {
+    $("video")[0].currentTime = 0;
+    $("video")[0].play();
+    $(".upNext").fadeOut();
+}
+//watching the video by redirecting to the watch.php page
+function watchVideo(videoId) {
+    window.location.href = "watch.php?id=" + videoId;
+}
+//fade in for the up next video after the current video is finished
+function showUpNext() {
+    $(".upNext").fadeIn();
 }
 
 
