@@ -1,5 +1,5 @@
 ![logo](https://github.com/MaryemD/NetflixClone/assets/148009446/adb3b9fe-0aa1-4471-afeb-f13599406242)
-# Tunibest - Netflix Clone
+# Tuniflix - Netflix Clone
 
 Tunibest is a Netflix clone built using PHP. It aims to replicate some of the core functionalities of Netflix, allowing users to browse, search, and watch movies and TV shows.
 
